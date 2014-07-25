@@ -1,0 +1,602 @@
+-- MySQL dump 10.13  Distrib 5.1.59, for Win64 (unknown)
+--
+-- Host: localhost    Database: pos
+-- ------------------------------------------------------
+-- Server version	5.1.59-community
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `branch_counter`
+--
+
+DROP TABLE IF EXISTS `branch_counter`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `branch_counter` (
+  `counter_pk` int(11) NOT NULL AUTO_INCREMENT,
+  `counter` varchar(90) DEFAULT NULL,
+  `counter_no` varchar(50) NOT NULL,
+  `login_userid` varchar(15) NOT NULL,
+  `branch_code` varchar(15) NOT NULL,
+  `counter_status` int(11) NOT NULL,
+  PRIMARY KEY (`counter_pk`,`counter_no`,`login_userid`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `branch_counter`
+--
+
+LOCK TABLES `branch_counter` WRITE;
+/*!40000 ALTER TABLE `branch_counter` DISABLE KEYS */;
+INSERT INTO `branch_counter` VALUES (1,'Perfumery','PF02','90000001','2000',1),(2,'Metal','ME03','No-User','2000',0),(3,'Sandal wood','SW04','90000001','2000',1),(4,'Rose Wood','RW05','No-User','2000',0),(5,'Billets/RM','SB06','No-User','2000',0),(6,'Lacq ware & Paintings','LW08','No-User','2000',0),(7,'Other Wood','OW09','No-User','2000',0);
+/*!40000 ALTER TABLE `branch_counter` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cancelling_reason_master`
+--
+
+DROP TABLE IF EXISTS `cancelling_reason_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cancelling_reason_master` (
+  `reason_id` int(11) NOT NULL,
+  `reason_desc` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`reason_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cancelling_reason_master`
+--
+
+LOCK TABLES `cancelling_reason_master` WRITE;
+/*!40000 ALTER TABLE `cancelling_reason_master` DISABLE KEYS */;
+INSERT INTO `cancelling_reason_master` VALUES (1,'Buying Other Item'),(2,'Others'),(3,'Checking');
+/*!40000 ALTER TABLE `cancelling_reason_master` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cashbill_header_master`
+--
+
+DROP TABLE IF EXISTS `cashbill_header_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cashbill_header_master` (
+  `cashBill_headerPk` int(11) NOT NULL AUTO_INCREMENT,
+  `cashBill_id` varchar(45) NOT NULL DEFAULT '',
+  `counterbill_no` varchar(45) NOT NULL,
+  `paymentType` varchar(45) NOT NULL DEFAULT '""',
+  `coupon_redu` float DEFAULT NULL,
+  `cash_payment` float DEFAULT NULL,
+  `card_payment` float DEFAULT NULL,
+  `travellers_cheque` float DEFAULT NULL,
+  `foregin_currency` float DEFAULT NULL,
+  `total_amt` float NOT NULL DEFAULT '0',
+  `balance_amt` float NOT NULL DEFAULT '0',
+  `plantId` varchar(45) DEFAULT NULL,
+  `user_id` varchar(45) NOT NULL DEFAULT '""',
+  `queueflag` int(1) DEFAULT NULL,
+  `date_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`cashBill_headerPk`,`cashBill_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cashbill_header_master`
+--
+
+LOCK TABLES `cashbill_header_master` WRITE;
+/*!40000 ALTER TABLE `cashbill_header_master` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cashbill_header_master` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cashbill_lineitem_master`
+--
+
+DROP TABLE IF EXISTS `cashbill_lineitem_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cashbill_lineitem_master` (
+  `cashBill_linePk` int(11) NOT NULL AUTO_INCREMENT,
+  `cashBill_id` varchar(45) NOT NULL DEFAULT '',
+  `counterbill_no` varchar(45) NOT NULL DEFAULT '""',
+  `cashbill_amt` float NOT NULL DEFAULT '0',
+  `queueflag` int(11) DEFAULT NULL,
+  `plantId` varchar(45) DEFAULT NULL,
+  `cashbill_dateTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`cashBill_linePk`,`cashBill_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cashbill_lineitem_master`
+--
+
+LOCK TABLES `cashbill_lineitem_master` WRITE;
+/*!40000 ALTER TABLE `cashbill_lineitem_master` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cashbill_lineitem_master` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cashbill_paymenttype`
+--
+
+DROP TABLE IF EXISTS `cashbill_paymenttype`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cashbill_paymenttype` (
+  `paymentType_pk` int(11) NOT NULL AUTO_INCREMENT,
+  `cashbill_no` varchar(45) NOT NULL,
+  `cardType` varchar(45) DEFAULT NULL,
+  `cardNumber` varchar(45) DEFAULT NULL,
+  `expiryDate` date DEFAULT NULL,
+  `cardHolderName` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`paymentType_pk`,`cashbill_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cashbill_paymenttype`
+--
+
+LOCK TABLES `cashbill_paymenttype` WRITE;
+/*!40000 ALTER TABLE `cashbill_paymenttype` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cashbill_paymenttype` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cashbill_reduction`
+--
+
+DROP TABLE IF EXISTS `cashbill_reduction`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cashbill_reduction` (
+  `reduction_pk` int(11) NOT NULL AUTO_INCREMENT,
+  `cashbill_no` int(11) NOT NULL,
+  `couponType` varchar(45) DEFAULT NULL,
+  `couponFrom` int(11) DEFAULT NULL,
+  `couponTo` int(11) DEFAULT NULL,
+  PRIMARY KEY (`reduction_pk`,`cashbill_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cashbill_reduction`
+--
+
+LOCK TABLES `cashbill_reduction` WRITE;
+/*!40000 ALTER TABLE `cashbill_reduction` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cashbill_reduction` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `coupon_master`
+--
+
+DROP TABLE IF EXISTS `coupon_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `coupon_master` (
+  `coupon_id` int(11) NOT NULL AUTO_INCREMENT,
+  `coupon_type` varchar(45) DEFAULT NULL,
+  `coupon_descp` varchar(250) DEFAULT NULL,
+  `coupon_rate` float DEFAULT NULL,
+  `coupon_from` int(11) DEFAULT NULL,
+  `coupon_to` int(11) DEFAULT NULL,
+  PRIMARY KEY (`coupon_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `coupon_master`
+--
+
+LOCK TABLES `coupon_master` WRITE;
+/*!40000 ALTER TABLE `coupon_master` DISABLE KEYS */;
+INSERT INTO `coupon_master` VALUES (1,'COUPON250','250 RUPEES COUPON',250,1,50),(2,'COUPON500','500 RUPEES COUPON',500,1,150),(3,'COUPON1000','1000 RUPEES COUPON',1000,1,200),(6,'COUPON1500','COUPON 5013',250,1,250),(7,'COUPON2000','Description',250,1,300),(8,'COUPON2500','500-Coupon',100,1,350);
+/*!40000 ALTER TABLE `coupon_master` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `coupon_transcation`
+--
+
+DROP TABLE IF EXISTS `coupon_transcation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `coupon_transcation` (
+  `transcation_id` int(11) NOT NULL AUTO_INCREMENT,
+  `coupon_id` int(11) DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `coupon_no` int(11) DEFAULT NULL,
+  `insdateTime` datetime DEFAULT NULL,
+  `couponsales_id` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`transcation_id`),
+  KEY `coupon_id_idx` (`coupon_id`),
+  KEY `coustomer_id_idx` (`customer_id`),
+  KEY `coupon_id_idx1` (`coupon_no`),
+  CONSTRAINT `coupon_id` FOREIGN KEY (`coupon_id`) REFERENCES `coupon_master` (`coupon_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `coustomer_id` FOREIGN KEY (`customer_id`) REFERENCES `coustomer_info` (`info_pk`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `coupon_transcation`
+--
+
+LOCK TABLES `coupon_transcation` WRITE;
+/*!40000 ALTER TABLE `coupon_transcation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `coupon_transcation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `coustomer_info`
+--
+
+DROP TABLE IF EXISTS `coustomer_info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `coustomer_info` (
+  `info_pk` int(11) NOT NULL AUTO_INCREMENT,
+  `sales_ordno` varchar(50) NOT NULL DEFAULT '',
+  `custname` varchar(80) DEFAULT NULL,
+  `contact` varchar(18) DEFAULT NULL,
+  `street1` varchar(120) DEFAULT NULL,
+  `street2` varchar(120) DEFAULT NULL,
+  `country` varchar(50) DEFAULT NULL,
+  `state` varchar(80) DEFAULT NULL,
+  `city` varchar(80) DEFAULT NULL,
+  `zipcode` varchar(10) DEFAULT NULL,
+  `info_status` int(11) DEFAULT '0',
+  `datetime` datetime DEFAULT NULL,
+  PRIMARY KEY (`info_pk`,`sales_ordno`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `coustomer_info`
+--
+
+LOCK TABLES `coustomer_info` WRITE;
+/*!40000 ALTER TABLE `coustomer_info` DISABLE KEYS */;
+/*!40000 ALTER TABLE `coustomer_info` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `craft_counter_list`
+--
+
+DROP TABLE IF EXISTS `craft_counter_list`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `craft_counter_list` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(250) DEFAULT NULL,
+  `storage_location` varchar(45) NOT NULL,
+  `craft_group` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`,`storage_location`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `craft_counter_list`
+--
+
+LOCK TABLES `craft_counter_list` WRITE;
+/*!40000 ALTER TABLE `craft_counter_list` DISABLE KEYS */;
+INSERT INTO `craft_counter_list` VALUES (1,'PERFUMERIES - SOAP','PF02','P3'),(2,'PERFUMERIES - OIL','PF02','P4'),(3,'PERFUMERIES -  AGARABATHI','PF02','P1'),(4,'PERFUMERIES - PERFUMES','PF02','P2'),(5,'BIDRIWARE','ME03','BW'),(6,'METAL BRONZE','ME03','M1'),(7,'METAL BRASS','ME03','M2'),(8,'SANDALWOOD','SW04','SW'),(9,'ARTISTIC RW FURNITURE','RW05','FR'),(10,'ROSEWOOD','RW05','RW'),(11,'SANDALWOOD - BILLETS','SB06','SB'),(12,'KINHAL TOYS','LW08','KT'),(13,'JEWELLERY - MEMONTO','LW08','JM'),(14,'CARPETS DHURRIES','OW09','CD'),(15,'CARPETS WLOON','OW09','CW');
+/*!40000 ALTER TABLE `craft_counter_list` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `craft_tax_price`
+--
+
+DROP TABLE IF EXISTS `craft_tax_price`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `craft_tax_price` (
+  `craft_group` varchar(5) NOT NULL,
+  `output_tax` float DEFAULT NULL,
+  PRIMARY KEY (`craft_group`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `craft_tax_price`
+--
+
+LOCK TABLES `craft_tax_price` WRITE;
+/*!40000 ALTER TABLE `craft_tax_price` DISABLE KEYS */;
+INSERT INTO `craft_tax_price` VALUES ('CW',14.5),('SB',6.75),('SW',5.5),('T1',1),('TX',1.5);
+/*!40000 ALTER TABLE `craft_tax_price` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `emp_master`
+--
+
+DROP TABLE IF EXISTS `emp_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `emp_master` (
+  `emp_pk` int(11) NOT NULL AUTO_INCREMENT,
+  `emp_id` varchar(45) NOT NULL DEFAULT '',
+  `emp_name` varchar(150) DEFAULT NULL,
+  `emp_gender` varchar(7) DEFAULT NULL,
+  `emp_type` varchar(30) DEFAULT NULL,
+  `emp_Dob` datetime DEFAULT NULL,
+  `emp_email` varchar(180) DEFAULT NULL,
+  `emp_contact` varchar(25) DEFAULT NULL,
+  `emp_joiningDate` datetime DEFAULT NULL,
+  `emp_createdDate` datetime DEFAULT NULL,
+  `emp_updatedDate` datetime DEFAULT NULL,
+  `emp_status` tinyint(4) DEFAULT NULL,
+  `emp_image_name` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`emp_pk`,`emp_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `emp_master`
+--
+
+LOCK TABLES `emp_master` WRITE;
+/*!40000 ALTER TABLE `emp_master` DISABLE KEYS */;
+INSERT INTO `emp_master` VALUES (1,'90000001','Mahadev','Male','user','2014-02-16 20:56:03','abc@yahoo.com','9874561230','2014-02-17 00:35:19','2014-02-16 23:30:48','2014-02-16 23:30:48',1,'cauvery.jpg'),(2,'90000003','Murali','Male','admin','2014-02-18 00:00:00','abc@yahoo.com','9874561230','2014-02-17 00:35:19','2014-02-16 23:30:48','2014-02-20 20:01:54',0,'zoozoo2-358.jpg'),(3,'90000005','Ramesh','Male','user','2014-02-16 20:56:03','abc@yahoo.com','9874561230','2014-02-17 00:35:19','2014-02-16 23:30:48','2014-02-16 23:30:48',1,'cauvery.jpg'),(4,'90000006','Narayan','Male','user','2014-02-16 20:56:03','abc@yahoo.com','9874561230','2014-02-17 00:35:19','2014-02-16 23:30:48','2014-02-16 23:30:48',1,'cauvery.jpg'),(5,'90000007','abc','Male','user','2014-02-16 20:56:03','abc@yahoo.com','9874561230','2014-02-17 00:35:19','2014-02-16 23:30:48','2014-02-16 23:30:48',1,'cauvery.jpg'),(6,'0002','abc','Male','user','2014-02-16 20:56:03','abc@yahoo.com','9874561230','2014-02-16 20:56:03','2014-02-18 01:12:12','2014-02-18 01:12:12',NULL,'cauvery.jpg'),(7,'0000000007','K.Ramaiah..7','Male','user','2014-02-02 00:00:00','abc123@yahoo.com','9874561230','2014-02-12 00:00:00','2014-02-18 03:59:25','2014-02-20 02:51:01',0,'zoozoo-19i.jpg');
+/*!40000 ALTER TABLE `emp_master` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `header`
+--
+
+DROP TABLE IF EXISTS `header`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `header` (
+  `header_pk` int(11) NOT NULL AUTO_INCREMENT,
+  `sales_orderno` varchar(120) NOT NULL DEFAULT '',
+  `show_room` varchar(50) NOT NULL,
+  `emp_id` varchar(120) NOT NULL,
+  `pay_type` varchar(50) NOT NULL,
+  `bil_amt` float NOT NULL,
+  `pck_charge` float NOT NULL DEFAULT '0',
+  `net_amt` float NOT NULL,
+  `txt_bilAmt` varchar(350) NOT NULL,
+  `discunt_approval` varchar(50) DEFAULT NULL,
+  `date_time` datetime NOT NULL,
+  `Queue_flag` int(11) NOT NULL,
+  `cancelFlag` varchar(2) DEFAULT 'N',
+  `cancelReason` varchar(250) DEFAULT NULL,
+  `cancelledBy` varchar(45) DEFAULT NULL,
+  `cancelDatetime` datetime DEFAULT NULL,
+  PRIMARY KEY (`header_pk`,`sales_orderno`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `header`
+--
+
+LOCK TABLES `header` WRITE;
+/*!40000 ALTER TABLE `header` DISABLE KEYS */;
+/*!40000 ALTER TABLE `header` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lineitem`
+--
+
+DROP TABLE IF EXISTS `lineitem`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lineitem` (
+  `line_pk` int(11) NOT NULL AUTO_INCREMENT,
+  `sales_orderno` varchar(120) NOT NULL DEFAULT '',
+  `plant` varchar(120) DEFAULT NULL,
+  `item` int(11) NOT NULL DEFAULT '0',
+  `material` varchar(150) DEFAULT NULL,
+  `descrip` varchar(250) DEFAULT NULL,
+  `vendor` varchar(120) DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `prc_value` float DEFAULT NULL,
+  `discount_percentage` float DEFAULT NULL,
+  `discount_value` float DEFAULT NULL,
+  `vat_percentage` float DEFAULT NULL,
+  `vat_value` float DEFAULT NULL,
+  `calcu_value` float DEFAULT NULL,
+  `pck_charge` float DEFAULT '0',
+  `Queue_flag` int(11) NOT NULL,
+  `date_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`line_pk`,`sales_orderno`,`item`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lineitem`
+--
+
+LOCK TABLES `lineitem` WRITE;
+/*!40000 ALTER TABLE `lineitem` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lineitem` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `material_master_taxgroup`
+--
+
+DROP TABLE IF EXISTS `material_master_taxgroup`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `material_master_taxgroup` (
+  `material_no` varchar(20) NOT NULL,
+  `material_desc` varchar(250) DEFAULT NULL,
+  `plant` varchar(15) DEFAULT NULL,
+  `craft_group` varchar(5) DEFAULT NULL,
+  `price` float DEFAULT NULL,
+  PRIMARY KEY (`material_no`),
+  KEY `craft_group_idx` (`craft_group`),
+  CONSTRAINT `craft_group` FOREIGN KEY (`craft_group`) REFERENCES `craft_tax_price` (`craft_group`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `material_master_taxgroup`
+--
+
+LOCK TABLES `material_master_taxgroup` WRITE;
+/*!40000 ALTER TABLE `material_master_taxgroup` DISABLE KEYS */;
+INSERT INTO `material_master_taxgroup` VALUES ('8907043000023','S.W..GANESHA./2','2000','TX',795.75),('8907043000030','G52 5 STEP DEEPA.','2000','SW',325),('8907043000047','G52 7 STEP DEEPA 110V','2000','T1',740),('8907043000048','SANDALWOOD BILLETS','2000','SB',10000),('8907043057935','S.W/P/C KEYCHAIN C','2000','CW',13),('8907043081190','S.W.ELEPHANT','2000','SW',87.42);
+/*!40000 ALTER TABLE `material_master_taxgroup` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `onlineusers`
+--
+
+DROP TABLE IF EXISTS `onlineusers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `onlineusers` (
+  `userName` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `onlineusers`
+--
+
+LOCK TABLES `onlineusers` WRITE;
+/*!40000 ALTER TABLE `onlineusers` DISABLE KEYS */;
+INSERT INTO `onlineusers` VALUES ('admin'),('admin'),('admin'),('admin'),('admin'),('admin'),('admin'),('admin'),('admin'),('mguser'),('mguser'),('mguser'),('mguser'),('mguser'),('mguser'),('mguser'),('mguser'),('mguser'),('mguser'),('mguser'),('mguser'),('mguser'),('mguser'),('mguser'),('mguser'),('mguser');
+/*!40000 ALTER TABLE `onlineusers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `payment_type`
+--
+
+DROP TABLE IF EXISTS `payment_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `payment_type` (
+  `paytype_pk` int(11) NOT NULL AUTO_INCREMENT,
+  `paytype_type` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`paytype_pk`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `payment_type`
+--
+
+LOCK TABLES `payment_type` WRITE;
+/*!40000 ALTER TABLE `payment_type` DISABLE KEYS */;
+INSERT INTO `payment_type` VALUES (1,'Select'),(2,'Cash'),(3,'Credit Card'),(4,'Foregin Currency');
+/*!40000 ALTER TABLE `payment_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `showroom_master`
+--
+
+DROP TABLE IF EXISTS `showroom_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `showroom_master` (
+  `shwrom_pk` int(11) NOT NULL AUTO_INCREMENT,
+  `showroom` varchar(200) NOT NULL DEFAULT '',
+  `description` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`shwrom_pk`,`showroom`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `showroom_master`
+--
+
+LOCK TABLES `showroom_master` WRITE;
+/*!40000 ALTER TABLE `showroom_master` DISABLE KEYS */;
+INSERT INTO `showroom_master` VALUES (1,'2000','MG Road Showroom');
+/*!40000 ALTER TABLE `showroom_master` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_master`
+--
+
+DROP TABLE IF EXISTS `user_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_master` (
+  `user_pk` int(11) NOT NULL AUTO_INCREMENT,
+  `plant` varchar(150) NOT NULL DEFAULT '',
+  `username` varchar(50) NOT NULL DEFAULT '',
+  `pwd` varchar(20) DEFAULT NULL,
+  `emp_fk` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`user_pk`,`plant`,`username`,`emp_fk`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_master`
+--
+
+LOCK TABLES `user_master` WRITE;
+/*!40000 ALTER TABLE `user_master` DISABLE KEYS */;
+INSERT INTO `user_master` VALUES (1,'2000','mguser','123',1),(2,'2000','admin','admin',2),(3,'2000','jnagaruser','123',3),(4,'3000','3NVL','9Nc7',4);
+/*!40000 ALTER TABLE `user_master` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vendor_master`
+--
+
+DROP TABLE IF EXISTS `vendor_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vendor_master` (
+  `vndr_pk` int(11) NOT NULL AUTO_INCREMENT,
+  `vendor_id` varchar(10) NOT NULL DEFAULT '',
+  `vendor_name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`vndr_pk`,`vendor_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vendor_master`
+--
+
+LOCK TABLES `vendor_master` WRITE;
+/*!40000 ALTER TABLE `vendor_master` DISABLE KEYS */;
+INSERT INTO `vendor_master` VALUES (1,'100451','K.K.S HANDI CRAFT'),(2,'100681','ARR CRAFT COMPLEX'),(3,'100002','BANDAPPA'),(4,'100006','ANAND KUMAR'),(5,'100031','KRISHNAMOORTHI');
+/*!40000 ALTER TABLE `vendor_master` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-07-24 16:13:34
